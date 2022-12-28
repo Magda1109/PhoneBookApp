@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using System.Linq;
-namespace PhoneBook
+
+namespace PhoneBookApp
 {
     class Program
     {
@@ -29,23 +28,12 @@ namespace PhoneBook
                         if (number.Length < 9)
                         {
                             Console.WriteLine("Incorrect format");
+                            break;
                         }
-                        else
-                        {
-                            Console.WriteLine("Insert name");
-                            var name = Console.ReadLine();
+                        Console.WriteLine("Insert name");
+                        var name = Console.ReadLine();
 
-                            if (name.Length < 3)
-                            {
-                                Console.WriteLine("Name must contain at least 3 characters.");
-                            }
-                            else
-                            {
-                                var newContact = new Contact(name, number);
-                                phoneBook.AddContact(newContact);
-                                Console.WriteLine("Contact has been added.");
-                            }
-                        }
+                        CheckName(name, number);
                         break;
                     case "2":
                         Console.WriteLine("Insert number");
@@ -78,6 +66,20 @@ namespace PhoneBook
                 }
                 Console.WriteLine("What would you like to do? Press 'q' to close.");
                 userInput = Console.ReadLine();
+            }
+
+            void CheckName(string name, string number)
+            {
+                if (name.Length < 3)
+                {
+                    Console.WriteLine("Name must contain at least 3 characters.");
+                }
+                else
+                {
+                    var newContact = new Contact(name, number);
+                    phoneBook.AddContact(newContact);
+                    Console.WriteLine("Contact has been added.");
+                }
             }
         }
     }
