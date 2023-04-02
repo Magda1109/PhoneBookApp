@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace PhoneBookApp
 {
@@ -24,16 +25,15 @@ namespace PhoneBookApp
                 {
                     case "1":
                         Console.WriteLine("Insert number (required format: XXXXXXXXX)");
-                        var number = Console.ReadLine();
-                        if (number.Length < 9)
-                        {
-                            Console.WriteLine("Incorrect format");
-                            break;
-                        }
-                        Console.WriteLine("Insert name");
-                        var name = Console.ReadLine();
+                        var enteredNumber = Console.ReadLine();
+                        string number = CheckNumber(enteredNumber);
 
-                        CheckName(name, number);
+                        if (number != null)
+                        {
+                            Console.WriteLine("Insert name");
+                            var name = Console.ReadLine();
+                            CheckName(name, number);
+                        }
                         break;
                     case "2":
                         Console.WriteLine("Insert number");
@@ -64,15 +64,34 @@ namespace PhoneBookApp
                         Console.WriteLine("Invalid command");
                         break;
                 }
-                Console.WriteLine("What would you like to do? Press 'q' to close.");
+                Console.WriteLine("\nWhat would you like to do? Press 'q' to close.");
                 userInput = Console.ReadLine();
+            }
+
+
+            string CheckNumber(string numberToCheck)
+            {
+                if (numberToCheck.Length != 9)
+                {
+                    Console.WriteLine("Incorrect format");
+                    return null;
+                }
+
+                bool numberCheck = numberToCheck.Any(x => char.IsLetter(x));
+
+                if (numberCheck)
+                {
+                    Console.WriteLine("Incorrect format");
+                    return null;
+                }
+                return numberToCheck;
             }
 
             void CheckName(string name, string number)
             {
                 if (name.Length < 3)
                 {
-                    Console.WriteLine("Name must contain at least 3 characters.");
+                    Console.WriteLine("Name must contain at least 3 characters. \nNumber has not been added. Please try again.");
                 }
                 else
                 {
