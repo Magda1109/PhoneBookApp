@@ -69,22 +69,22 @@ namespace PhoneBookApp
             }
 
 
-            string CheckNumber(string numberToCheck)
+            string CheckNumber(string numberToBeChecked)
             {
-                if (numberToCheck.Length != 9)
+                if (numberToBeChecked.Length != 9)
                 {
                     Console.WriteLine("Incorrect format");
                     return null;
                 }
 
-                bool numberCheck = numberToCheck.Any(x => char.IsLetter(x));
+                bool numberCheck = numberToBeChecked.Any(char.IsLetter);
 
                 if (numberCheck)
                 {
                     Console.WriteLine("Incorrect format");
                     return null;
                 }
-                return numberToCheck;
+                return numberToBeChecked;
             }
 
             void CheckName(string name, string number)
