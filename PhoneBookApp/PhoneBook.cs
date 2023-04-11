@@ -12,6 +12,24 @@ namespace PhoneBookApp
             Contacts.Add(contact);
         }
 
+        public void CheckNumberAndName(string number, string name)
+        {
+            if (!(number.Length == 9 && number.All(char.IsDigit)))
+            {
+                Console.WriteLine("Incorrect number format.");
+            }
+            else if (name.Length < 3)
+            {
+                Console.WriteLine("Name must contain at least 3 characters. \nContact has not been added. Please try again.");
+            }
+            else
+            {
+                var newContact = new Contact(name, number);
+                AddContact(newContact);
+                Console.WriteLine("Contact has been added.");
+            }
+        }
+
         public void RemoveContact(string name)
         {
             var contactToRemove = Contacts.FirstOrDefault(x => x.Name == name);
